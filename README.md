@@ -1,6 +1,8 @@
 Experimental Chip-8 interpreter made in python
 
-Dependancies:
+WIP
+
+Dependencies:
 Python3 and pygame
 
 Usage:
