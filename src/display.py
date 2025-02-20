@@ -24,5 +24,5 @@ class display_func:
                     draw.rect(self.surface,(255,255,255),(x*self.scale,y*self.scale,self.scale,self.scale))
                 elif gfx[data]==0:
                     draw.rect(self.surface,(75, 54, 33),(x*self.scale,y*self.scale,self.scale,self.scale))
-        time.Clock().tick(60)
+        time.Clock().tick(6000)
         display.flip()

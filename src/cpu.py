@@ -195,7 +195,7 @@ class cpuChip8:
 
             elif self.N==0x5:
                 #VX-VY
-                #dont forgot to borrow if result is negative
+
                 result = self.V[self.X] - self.V[self.Y]
                 if result>0:
                     self.V[self.X]=result&0xff
@@ -205,9 +205,7 @@ class cpuChip8:
                     self.V[0xf]=0
 
             elif self.N==0x6:
-                #self.V[0xf]=(self.V[self.X]&0b000001)
-                #self.V[self.X]//=2
-                self.v[0xf] = self.v[self.X ] & 0b1
+                self.V[0xf] = self.V[self.X] & 0b1
                 self.V[self.X] = self.V[self.X] >> 1
 
 
@@ -219,16 +217,12 @@ class cpuChip8:
                     self.V[self.X]=result
                     self.V[0xf]=1
                 else:
-                    self.V[self.X]=result+256
+                    self.V[self.X]=(result+256)&0xff
                     self.V[0xf]=0
             elif self.N==0xe:
-                #self.V[0xf]=(self.V[self.X] & 0b10000000)>>7
-                #if (self.V[self.X]*2) > 0xff:
-                #    self.V[self.X]=self.V[self.X]*2-256
-                #else:
-                 #   self.V[self.X]*=2
-                self.V[0xf] = self.V & 0x80
-                self.v[self.X] = self.V[self.X] << 1
+                self.V[0xf] = self.X & 0x80
+                
+                self.V[self.X] = (self.V[self.X] << 1) & 0xff
  
 
         elif self.case==0x9:
@@ -292,7 +286,7 @@ class cpuChip8:
             elif self.NN==0x1e:
                 self.i+=self.V[self.X]
             elif self.NN==0x29:
-                self.i=self.V[self.X]
+                self.i=self.V[self.X] * 0x5
             elif self.NN==0x33:
                 self.mem[self.i]=int(self.V[self.X])//100
                 self.mem[self.i+1]=(int(self.V[self.X])//10)%10
